@@ -85,14 +85,14 @@ with open(out_txt, "w", encoding="utf-8") as f:
             after_shot  = arrivalTime + 20                              # sec after the shot arrival
 
             tr_slice  = tr.slice(starttime=before_shot, endtime=after_shot)
-            tr_slice2 = tr.slice(starttime=arrivalTime, endtime=arrivalTime + 1)
+            tr_slice2 = tr.slice(starttime=arrivalTime, endtime=arrivalTime + .5)
 
             # Apply a Butterworth bandpass filter to the trace
             tr_slice.filter("bandpass", freqmin=3.0, freqmax=12.0, corners=4, zerophase=True)
             tr_slice2.filter("bandpass", freqmin=3.0, freqmax=12.0, corners=4, zerophase=True)
 
             tmAx  = np.linspace(-20, 20, len(tr_slice.data))
-            tmAx2 = np.linspace(0, 1, len(tr_slice2.data))
+            tmAx2 = np.linspace(0, .5, len(tr_slice2.data))
 
             # find where the maximum amplitude occurs
             idx_maxAmp = np.where(tr_slice2.data == np.max(tr_slice2.data))
